@@ -47,6 +47,39 @@ const useModal = () => {
     toggle,
   }
 }
+
+const useHover = () => {
+  
+  const [isHover, setHover] = useState(false);
+
+  function toggleHover() {
+    setHover(!isHover);
+  }
+
+  return {
+    isHover,
+    toggleHover
+  }
+}
+const useElementId = (id) => {
+ 
+  const [idElement, setId] = useState('');
+
+  function toggleId(id) {
+    setId(id);
+  }
+
+  return {
+    idElement,
+    toggleId,
+  }
+}
+
+/*  :hover: {
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.5,
+      shadowRadius: 10,
+    }, */
 function Modal({ isShowing, hide }) {
   const classes = useStyles();
   return (
@@ -63,7 +96,7 @@ function Modal({ isShowing, hide }) {
       </DialogContent>
       <DialogActions>
         <Button
-        >Registrarme</Button>
+        ></Button>
         <Button className={classes.blueButton} onClick={hide}>Cerrar</Button>
       </DialogActions>
     </Dialog>
@@ -71,6 +104,8 @@ function Modal({ isShowing, hide }) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  colorBar: { height: '3px', width: '100%', color: '216,106,42' },
+  colorIwant: { color: '#ff6f00' },
   colorRed: { color: 'rgb(195,195,50)' },
   container: {
     display: 'flex',
@@ -125,6 +160,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -136,6 +172,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
+  hover:{
+   boxShadow:'0 0 11px rgba(33,33,33,.9)'
+
+  },
+  noHover:{
+    
+
+  }
+  
 }));
 
 const cards2 = [1];
@@ -143,14 +188,14 @@ const cards = [
   {
     id: 0,
     productName: 'Bioseguridad Facial',
-    price: '$12K',
+    price: '$ 12K',
     urlVideo: 'https://www.youtube.com/watch?v=gTPz3J-BlLQ',
     urlWhatsApp: 'https://wa.link/vvnjo7'
   },
   {
     id: 1,
     productName: 'Protector Facial Rojo',
-    price: '$12K',
+    price: '$ 12K',
     urlVideo: 'https://www.youtube.com/watch?v=vvnja9dkvXw',
     urlWhatsApp: 'https://wa.link/vvnjo7'
   }
@@ -158,6 +203,18 @@ const cards = [
 
 export default function MeCuidoHoy() {
   const { isShowing, toggle } = useModal();
+  const { isHover, toggleHover } = useHover();
+  const {idElement, toggleId} = useElementId();
+ 
+  /* var linkStyle;
+  console.log(isHover)
+   if (isHover) {
+     linkStyle = {
+       shadow:10
+     }
+   } else {
+     linkStyle = {}
+   } */
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -166,8 +223,8 @@ export default function MeCuidoHoy() {
         <Toolbar className={classes.bar}>
           {/* <div  className={classes.containerBar}> */}
           <Health className={classes.icon} />
-          <Typography variant="h6" color='primary' noWrap>
-            Te cuidamos hoy.
+          <Typography variant="h5" color='primary' noWrap>
+            Cuidamos de tu salud
           </Typography>
         </Toolbar>
       </AppBar>
@@ -178,9 +235,16 @@ export default function MeCuidoHoy() {
         />
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
+            {cards.map((card,index) => {
+              return(
+              <Grid item key={card.id.toString()} xs={12} sm={6} md={4}>
+                <Card  //className={classes.card}
+                className={isHover && idElement===card.id ? classes.hover : classes.noHover}
+                
+                onMouseEnter={()=>{toggleHover()
+                  toggleId(index)}}
+                onMouseLeave={()=>{toggleHover()}}
+                >
                   <div >
                     <ReactPlayer
                       width={'100%'}
@@ -190,27 +254,34 @@ export default function MeCuidoHoy() {
                     />
                   </div>
 
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                  <CardContent className={classes.cardContent} style={{
+                    backgroundColor: 'rgb(40,44,54)',
+
+                  }}>
+                    <Typography style={{ color: 'rgb(255,255,255)' }} //gutterBottom variant="h6" component="h1"
+                    >
                       {card.productName}
                     </Typography>
-                    <Typography>
+                    <div style={{ height: '2px', width: '100%', background: 'rgb(196,197,199)', marginBottom: '4px', marginTop: '4px' }}></div>
+                    <Typography style={{ color: 'rgb(163,252,241)' }} //className={classes.colorIwant}
+                    >
                       {card.price}
 
                     </Typography>
 
                   </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary" href="https://wa.link/vvnjo7">
-                      Lo quiero
+                  <CardActions style={{ backgroundColor: 'rgb(40,44,54)' }}>
+                    <Button size="small" color="primary" href="https://wa.link/vvnjo7"
+                      className={classes.blueButton}>
+                      Comprar
                     </Button>
-                    <Button size="small" color="primary" onClick={toggle}>
-                      Info al por mayor
+                    <Button className={classes.redButton} size="small" color="primary" onClick={toggle}>
+                      Más info
                     </Button>
                   </CardActions>
                 </Card>
               </Grid>
-            ))}
+            )})}
           </Grid>
         </Container>
       </main>
