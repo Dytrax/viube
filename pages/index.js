@@ -94,7 +94,7 @@ function Modal({ isShowing, hide }) {
           Datos de venta al por mayor
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
+      <DialogActions >
         <Button
         ></Button>
         <Button className={classes.blueButton} onClick={hide}>Cerrar</Button>
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'white',
-    height: 48,
+    height: 35,
     padding: '0 30px',
     margin: '10px'
   },
@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
     color: 'white',
-    height: 48,
+    height: 35,
     padding: '0 30px',
   },
   containerBar: {
@@ -188,16 +188,24 @@ const cards = [
   {
     id: 0,
     productName: 'Bioseguridad Facial',
-    price: '$ 12K',
+    price: 12000,
     urlVideo: 'https://www.youtube.com/watch?v=gTPz3J-BlLQ',
-    urlWhatsApp: 'https://wa.link/vvnjo7'
+    urlWhatsApp: 'https://wa.link/vvnjo7',
+    info:{
+      title:'Bioseguridad Facial',
+      description:'Este producto no se empaña, el amarre a su cabeza es simple y comodo, es un dispositivo para aumentar la seguridad en contacto cercano con personas.'
+    }
   },
   {
     id: 1,
     productName: 'Protector Facial Rojo',
-    price: '$ 12K',
+    price: 12000,
     urlVideo: 'https://www.youtube.com/watch?v=vvnja9dkvXw',
-    urlWhatsApp: 'https://wa.link/vvnjo7'
+    urlWhatsApp: 'https://wa.link/vvnjo7',
+    info:{
+      title:'Bioseguridad Facial',
+      description:'Este producto no se empaña, el amarre a su cabeza es simple y comodo, es un dispositivo para aumentar la seguridad en contacto cercano con personas.'
+    }
   }
 ]
 
@@ -223,8 +231,8 @@ export default function MeCuidoHoy() {
         <Toolbar className={classes.bar}>
           {/* <div  className={classes.containerBar}> */}
           <Health className={classes.icon} />
-          <Typography variant="h5" color='primary' noWrap>
-            Cuidamos de tu salud
+          <Typography variant="h5" style={{color:'rgb(112,175,240)'}} noWrap>
+            Viube #Salud
           </Typography>
         </Toolbar>
       </AppBar>
@@ -258,26 +266,37 @@ export default function MeCuidoHoy() {
                     backgroundColor: 'rgb(40,44,54)',
 
                   }}>
+                    
                     <Typography style={{ color: 'rgb(255,255,255)' }} //gutterBottom variant="h6" component="h1"
                     >
                       {card.productName}
                     </Typography>
                     <div style={{ height: '2px', width: '100%', background: 'rgb(196,197,199)', marginBottom: '4px', marginTop: '4px' }}></div>
-                    <Typography style={{ color: 'rgb(163,252,241)' }} //className={classes.colorIwant}
+                    <Typography style={{ color: 'rgb(255,255,255)',fontSize:11.27 }} //gutterBottom variant="h6" component="h1"
                     >
-                      {card.price}
+                      {card.info.description}
+                    </Typography>
+                    {isHover && idElement===card.id ? (<Typography style={{ color: 'rgb(163,252,241)',textDecoration:'line-through' }} //className={classes.colorIwant}
+                    >
+                      {`Antes $ ${card.price + 9000}`}
+
+                    </Typography>) : null}
+                    
+                    <Typography style={{ color: 'rgb(163,252,241)',fontSize:16.1}} //className={classes.colorIwant}
+                    >
+                      {`Ahora $ ${card.price}`}
 
                     </Typography>
 
                   </CardContent>
-                  <CardActions style={{ backgroundColor: 'rgb(40,44,54)' }}>
+                  <CardActions style={{ backgroundColor: 'rgb(40,44,54)',justifyContent:'center', alignItems:'center'}}>
                     <Button size="small" color="primary" href="https://wa.link/vvnjo7"
                       className={classes.blueButton}>
-                      Comprar
+                      Conseguir
                     </Button>
-                    <Button className={classes.redButton} size="small" color="primary" onClick={toggle}>
-                      Más info
-                    </Button>
+                    {/* <Button className={classes.redButton}  color="primary" onClick={toggle}>
+                    Informacion 
+                    </Button> */}
                   </CardActions>
                 </Card>
               </Grid>
