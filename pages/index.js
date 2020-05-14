@@ -173,8 +173,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
   hover:{
-   boxShadow:'0 0 11px rgba(33,33,33,.9)'
-
+   boxShadow:'0 0 11px rgba(33,33,33,.9)',
+   borderRadius: 3, 
   },
   noHover:{
     
