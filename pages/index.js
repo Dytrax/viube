@@ -20,7 +20,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+//import Logo from "../src/assets/Logo.png";
 
 
 function Copyright() {
@@ -28,7 +28,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Viube
+      Viube
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -48,12 +48,12 @@ const useModal = () => {
   }
 }
 
-const useHover = () => {
+const useHover = (state) => {
   
   const [isHover, setHover] = useState(false);
 
-  function toggleHover() {
-    setHover(!isHover);
+  function toggleHover(state) {
+    setHover(state);
   }
 
   return {
@@ -213,7 +213,7 @@ export default function MeCuidoHoy() {
   const { isShowing, toggle } = useModal();
   const { isHover, toggleHover } = useHover();
   const {idElement, toggleId} = useElementId();
- 
+ console.log(isHover)
   /* var linkStyle;
   console.log(isHover)
    if (isHover) {
@@ -231,9 +231,10 @@ export default function MeCuidoHoy() {
         <Toolbar className={classes.bar}>
           {/* <div  className={classes.containerBar}> */}
           <Health className={classes.icon} />
-          <Typography variant="h5" style={{color:'rgb(112,175,240)'}} noWrap>
+          <img src="/logo.png" alt="my image" style={{height:'40px'}}/>
+          {/* <Typography variant="h5" style={{color:'rgb(112,175,240)'}} noWrap>
             Viube #Salud
-          </Typography>
+          </Typography> */}
         </Toolbar>
       </AppBar>
       <main>
@@ -248,10 +249,15 @@ export default function MeCuidoHoy() {
               <Grid item key={card.id.toString()} xs={12} sm={6} md={4}>
                 <Card  //className={classes.card}
                 className={isHover && idElement===card.id ? classes.hover : classes.noHover}
-                
-                onMouseEnter={()=>{toggleHover()
+                onMouseOver={()=>{toggleHover(true)
                   toggleId(index)}}
-                onMouseLeave={()=>{toggleHover()}}
+                /* onMouseOverCapture={()=>{toggleHover()
+                  toggleId(index)}} */
+                /* onMouseEnter={()=>{toggleHover()
+                  toggleId(index)}} */
+                  /* onClickCapture={()=>{toggleHover()
+                    toggleId(index)}} */
+                    onMouseLeave={()=>{toggleHover(false)}}
                 >
                   <div >
                     <ReactPlayer
@@ -265,31 +271,41 @@ export default function MeCuidoHoy() {
                   <CardContent className={classes.cardContent} style={{
                     backgroundColor: 'rgb(40,44,54)',
 
-                  }}>
+                  }}
+                  
+                  >
                     
                     <Typography style={{ color: 'rgb(255,255,255)' }} //gutterBottom variant="h6" component="h1"
+                   
                     >
                       {card.productName}
                     </Typography>
                     <div style={{ height: '2px', width: '100%', background: 'rgb(196,197,199)', marginBottom: '4px', marginTop: '4px' }}></div>
                     <Typography style={{ color: 'rgb(255,255,255)',fontSize:11.27 }} //gutterBottom variant="h6" component="h1"
+                    
                     >
                       {card.info.description}
                     </Typography>
-                    {isHover && idElement===card.id ? (<Typography style={{ color: 'rgb(163,252,241)',textDecoration:'line-through' }} //className={classes.colorIwant}
+                    {isHover && idElement===card.id ? (<Typography 
+                    style={{ color: 'rgb(163,252,241)',textDecoration:'line-through' }} //className={classes.colorIwant}
+                   
                     >
                       {`Antes $ ${card.price + 9000}`}
 
                     </Typography>) : null}
                     
                     <Typography style={{ color: 'rgb(163,252,241)',fontSize:16.1}} //className={classes.colorIwant}
+                  
                     >
                       {`Ahora $ ${card.price}`}
 
                     </Typography>
 
                   </CardContent>
-                  <CardActions style={{ backgroundColor: 'rgb(40,44,54)',justifyContent:'center', alignItems:'center'}}>
+                  <CardActions 
+                  style={{ backgroundColor: 'rgb(40,44,54)',justifyContent:'center', alignItems:'center'}}
+                 
+                  >
                     <Button size="small" color="primary" href="https://wa.link/vvnjo7"
                       className={classes.blueButton}>
                       Conseguir
