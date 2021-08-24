@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Health from '@material-ui/icons/LocalHospital';
@@ -13,6 +13,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import ReactPlayer from "react-player"
+import { gsap } from "gsap";
+
 //Modal Imports
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -137,7 +139,19 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '2%'
   },
   bar: {
-    backgroundColor: 'rgb(255,255,255)'
+    backgroundColor: 'rgb(0,0,0)',
+  },
+  textTitle:{
+    color: 'rgb(255,112,56)',
+    textShadow:['0 0 7px rgb(155,112,56)',
+      '0 0 10px rgb(200,112,56)',
+      '0 0 21px rgb(0,0,0)',
+      '0 0 42px rgb(0,0,0)',
+      '0 0 82px rgb(0,0,0)',
+      '0 0 92px rgb(0,0,0)',
+      '0 0 102px rgb(0,0,0)',
+      '0 0 151px rgb(255,112,56)'],
+      
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -152,9 +166,11 @@ const useStyles = makeStyles((theme) => ({
 
   },
   cardGrid: {
+    color:'rgb(0,0,0)',
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-    marginTop: '10%'
+    //marginTop: '10%',
+    backgroundColor:'rgb(0,0,0)'
   },
   card: {
     height: '100%',
@@ -187,9 +203,20 @@ const cards2 = [1];
 const cards = [
   {
     id: 0,
-    productName: 'Bioseguridad Facial',
+    productName: 'Burguer Dante',
     price: 12000,
     urlVideo: 'https://www.youtube.com/watch?v=gTPz3J-BlLQ',
+    urlWhatsApp: 'https://wa.link/vvnjo7',
+    info:{
+      title:'Burguer Dante',
+      description:'Convencente que no has probado la mejor burgue del infierno mundo de dante, tu lengua seguro se derretira con el queso y nuestra salsa especial.'
+    }
+  },  
+  {
+    id: 1,
+    productName: 'Protector Facial Rojo',
+    price: 12000,
+    urlVideo: 'https://www.youtube.com/watch?v=vvnja9dkvXw',
     urlWhatsApp: 'https://wa.link/vvnjo7',
     info:{
       title:'Bioseguridad Facial',
@@ -197,9 +224,20 @@ const cards = [
     }
   },
   {
-    id: 1,
+    id: 2,
     productName: 'Protector Facial Rojo',
-    price: 12000,
+    price: 20000,
+    urlVideo: 'https://www.youtube.com/watch?v=vvnja9dkvXw',
+    urlWhatsApp: 'https://wa.link/vvnjo7',
+    info:{
+      title:'Bioseguridad Facial',
+      description:'Este producto no se empaña, el amarre a su cabeza es simple y comodo, es un dispositivo para aumentar la seguridad en contacto cercano con personas.'
+    }
+  },
+  {
+    id: 3,
+    productName: 'Protector Facial Rojo',
+    price: 20000,
     urlVideo: 'https://www.youtube.com/watch?v=vvnja9dkvXw',
     urlWhatsApp: 'https://wa.link/vvnjo7',
     info:{
@@ -213,7 +251,7 @@ export default function MeCuidoHoy() {
   const { isShowing, toggle } = useModal();
   const { isHover, toggleHover } = useHover();
   const {idElement, toggleId} = useElementId();
- console.log(isHover)
+ //console.log(isHover)
   /* var linkStyle;
   console.log(isHover)
    if (isHover) {
@@ -223,48 +261,68 @@ export default function MeCuidoHoy() {
    } else {
      linkStyle = {}
    } */
+   // store a reference to the box div
+  const boxRef = useRef();
+
+  // wait until DOM has been rendered
+  useEffect(() => {
+   /*  gsap.to(boxRef.current, { rotation: "+=360" }); */
+  });
   const classes = useStyles();
   return (
-    <React.Fragment>
+    <React.Fragment >
+     
       <CssBaseline />
-      <AppBar position="fixed" >
-        <Toolbar className={classes.bar}>
-          {/* <div  className={classes.containerBar}> */}
+      {/* <AppBar  style={{backgroundColor:'rgb(0,0,0)'}}>
+        <Toolbar style={{backgroundColor:'rgb(0,0,0)'}} className={classes.bar}>
+          <div  className={classes.containerBar}>
+          <Typography variant="h4" ref={boxRef} className={classes.textTitle}>
+                Mi) domi
+          </Typography>
           <Health className={classes.icon} />
           <img src="/logo.png" alt="my image" style={{height:'40px'}}/>
-          {/* <Typography variant="h5" style={{color:'rgb(112,175,240)'}} noWrap>
+          <Typography variant="h5" style={{color:'rgb(112,175,240)'}} noWrap>
             Viube #Salud
-          </Typography> */}
+          </Typography>
         </Toolbar>
-      </AppBar>
-      <main>
-        <Modal
+      </AppBar> */}
+      <div style={{backgroundColor:'rgb(255,0,0)',width:'100%',heigth:'200px'}}>
+        d
+        dddm
+      </div>
+      {/* <main style={{backgroundColor:'rgb(0,0,0)'}}> */}
+        {/* <Modal
           isShowing={isShowing}
           hide={toggle}
         />
-        <Container className={classes.cardGrid} maxWidth="md">
+         */}
+        <Container style={{backgroundColor:'rgb(0,0,0)'}} className={classes.cardGrid} /* maxWidth="md" */>
+          
           <Grid container spacing={4}>
             {cards.map((card,index) => {
               return(
               <Grid item key={card.id.toString()} xs={12} sm={6} md={4}>
+                <h1  className={classes.textTitle}>
+                  {card.productName}
+                </h1>
                 <Card  //className={classes.card}
                 className={isHover && idElement===card.id ? classes.hover : classes.noHover}
-                onMouseOver={()=>{toggleHover(true)
-                  toggleId(index)}}
+                /* onMouseOver={()=>{toggleHover(true)
+                  toggleId(index)}} */
                 /* onMouseOverCapture={()=>{toggleHover()
                   toggleId(index)}} */
                 /* onMouseEnter={()=>{toggleHover()
                   toggleId(index)}} */
                   /* onClickCapture={()=>{toggleHover()
                     toggleId(index)}} */
-                    onMouseLeave={()=>{toggleHover(false)}}
+                    /* onMouseLeave={()=>{toggleHover(false)}} */
                 >
                   <div >
-                    <ReactPlayer
+                    <div
                       width={'100%'}
-                      height={'200px'}
-                      url={card.urlVideo}
-                      controls={true}
+                      height={'1000px'}
+                      //url={card.urlVideo}
+                      //controls={true}
                     />
                   </div>
 
@@ -319,8 +377,8 @@ export default function MeCuidoHoy() {
             )})}
           </Grid>
         </Container>
-      </main>
-      <footer className={classes.footer}>
+{/*       </main>
+ */}      <footer  style={{backgroundColor:'rgb(0,0,0)'}} className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
